@@ -4,7 +4,7 @@ import (
 	"io"
 )
 
-// proxy between two sockets
+// Shovel; proxy between two sockets
 func Shovel(local, remote io.ReadWriteCloser) error {
 	errch := make(chan error, 1)
 
@@ -21,7 +21,7 @@ func Shovel(local, remote io.ReadWriteCloser) error {
 	return nil
 }
 
-// copy between pipes, sending errors to channel
+// chanCopy; between pipes, sending errors to channel
 func chanCopy(e chan error, dst, src io.ReadWriter) {
 	_, err := io.Copy(dst, src)
 	e <- err

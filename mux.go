@@ -18,17 +18,17 @@ type Mux struct {
 	Handlers []Protocol
 }
 
-// create a new Mux assignment
+// NewMux; create a new Mux assignment
 func NewMux() *Mux {
 	return &Mux{}
 }
 
-// add a protocol to mux handler set
+// Handle; add a protocol to mux handler set
 func (m *Mux) Handle(p Protocol) {
 	m.Handlers = append(m.Handlers, p)
 }
 
-// match protocol to handler
+// Identify; match protocol to handler
 // returns address to proxy to
 func (m *Mux) Identify(header []byte) (address string) {
 	if len(m.Handlers) < 1 {
@@ -45,7 +45,7 @@ func (m *Mux) Identify(header []byte) (address string) {
 	return m.Handlers[len(m.Handlers)-1].Address()
 }
 
-// create a server on given address and handle incoming connections
+// ListenAndServe; create a server on given address and handle incoming connections
 func (m *Mux) ListenAndServe(addr string) error {
 	server, err := net.Listen("tcp", addr)
 	if err != nil {
